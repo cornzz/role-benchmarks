@@ -27,6 +27,14 @@ public class BankBenchmark extends Benchmark {
             }
         }
         bank.deactivate();
+        
+        for (Account from : bank.getCheckingAccounts()) {
+            System.out.println(from.getBalance());
+        }
+        for (Account to : bank.getSavingAccounts()) {
+            System.out.println(to.getBalance());
+        }
+
         return true;
     }
 

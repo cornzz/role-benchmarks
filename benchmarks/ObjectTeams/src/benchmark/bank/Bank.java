@@ -8,9 +8,10 @@ public team class Bank {
     private List<Account> checkingsAccounts;
     private List<Account> savingsAccounts;
 
-    precedence SavingsAccount,CheckingsAccount;
+    precedence CheckingsAccount,SavingsAccount;
 
     public class Customer playedBy Person {
+
         private List<Account> accounts;
 
         public void addAccount(Account account) {
@@ -56,45 +57,76 @@ public team class Bank {
 
         // private static final float LIMIT = 100.0f;
 
+        public void before() {
+            System.out.println("before CheckingsAccount decrease");
+        }
+
+        public void before2() {
+            System.out.println("before CheckingsAccount increase");
+        }
+
         callin float limited(float amount) {
-            // System.out.println("CheckingsAccount replace BEGIN");
+            System.out.println("replace CheckingsAccount decrease BEGIN");
             float f = base.limited(amount);
-            // System.out.println("CheckingsAccount replace END");
+            System.out.println("replace CheckingsAccount decrease END");
             return f;
         }
+
+        callin float replace(float amount) {
+            System.out.println("replace CheckingsAccount increase BEGIN");
+            float f = base.replace(amount);
+            System.out.println("replace CheckingsAccount increase END");
+            return f;
+        }
+
 
         public void after() {
             // System.out.println("after checkingsaccount decrease");
         }
 
-        public void before() {
-            //System.out.println("before CheckingsAccount decrease");
-        }
+        void before() <- before float decrease(float amount);
 
-        //void after() <- after void decrease(float amount);
-
-        //void before() <- before float decrease(float amount);
+        // void before2() <- before float increase(float amount);
 
         float limited(float amount) <- replace float decrease(float amount);
 
-        }
+        float replace(float amount) <- replace float increase(float amount);
+
+        // void after() <- after void decrease(float amount);
+    }
 
     public class SavingsAccount playedBy Account {
 
-            private static final float FEE = 1.1f;
+        private static final float FEE = 1.1f;
 
-            callin float withFee(float amount) {
-                //System.out.println("SavingsAccount replace BEGIN");
-                float f = base.withFee(amount * FEE);
-                //System.out.println("SavingsAccount replace END");
-                return f;
-            }
-
-            public void before() {
-                //System.out.println("before SavingsAccount decrease");
-            }
-
-            void before() <- before float decrease(float amount);
-            float withFee(float amount) <- replace float decrease(float amount);
+        public void before() {
+            System.out.println("before SavingsAccount decrease");
         }
+
+        public void before2() {
+            System.out.println("before SavingsAccount increase");
+        }
+
+        callin float withFee(float amount) {
+            System.out.println("replace SavingsAccount decrease BEGIN");
+            float f = base.withFee(amount * FEE);
+            System.out.println("replace SavingsAccount decrease END");
+            return f;
+        }
+
+        callin float replace(float amount) {
+            System.out.println("replace SavingsAccount increase BEGIN");
+            float f = base.replace(amount);
+            System.out.println("replace SavingsAccount increase END");
+            return f;
+        }
+
+        void before() <- before float decrease(float amount);
+
+        // void before2() <- before float increase(float amount);
+
+        float withFee(float amount) <- replace float decrease(float amount);
+
+        // float replace(float amount) <- replace float increase(float amount);
+    }
 }

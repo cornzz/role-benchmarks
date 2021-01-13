@@ -4,10 +4,14 @@ public team class CallinTransaction {
 
 	public class Source playedBy Account {
 
+		public void before(float a) {
+		    // System.out.println("Source before");
+        }
+
 		callin float withDraw(float amount) {
-			//System.out.println("Source replace BEGIN");
+			// System.out.println("Source replace BEGIN");
 			float f = base.withDraw(amount);
-			//System.out.println("Source replace END");
+			// System.out.println("Source replace END");
 			return f;
 		}
 
@@ -15,23 +19,21 @@ public team class CallinTransaction {
 		    // System.out.println("Source after");
 		}
 
-		public void before(float a) {
-		    // System.out.println("Source before");
-        }
-
     	void before(float a) <- before float decrease(float amount);
-        //void after() <- after void decrease(float amount);
 
 		float withDraw(float amount) <- replace float decrease(float amount);
+        
+        //void after() <- after void decrease(float amount);
 	}
 
 	public class Target playedBy Account {
+
 		callin float deposit(float amount) {
 			// System.out.println("Target replace BEGIN");
 			float f = base.deposit(amount);
 			// System.out.println("Target replace END");
 			return f;
-	  }
+		}
 
 		float deposit(float amount) <- replace float increase(float amount);
 	}
@@ -41,7 +43,7 @@ public team class CallinTransaction {
 		// System.out.println("Transaction decrease BEGIN");
 		float dec = f.decrease(a);
 		// System.out.println("Transaction decrease END");
-		//System.out.println(dec);
+		// System.out.println(dec);
 
 		// System.out.println("Transaction increase BEGIN");
 		float inc = t.increase(a);
