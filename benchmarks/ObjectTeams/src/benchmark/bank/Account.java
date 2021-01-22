@@ -12,13 +12,13 @@ public class Account {
 
     public float decrease(float amount) {
         balance -= amount;
-        //System.out.println("Account " + id + " decrease" + amount);
+        System.out.println("BASE Account " + id + " decrease " + amount);
         return amount;
     }
 
     public float increase(float amount) {
         balance += amount;
-        // System.out.println("Account increase");
+        System.out.println("BASE Account " + id + " increase " + amount);
         return amount;
     }
 

@@ -5,13 +5,13 @@ public team class CallinTransaction {
 	public class Source playedBy Account {
 
 		public void before(float a) {
-		    // System.out.println("Source before");
+		    System.out.println("Source before");
         }
 
 		callin float withDraw(float amount) {
-			// System.out.println("Source replace BEGIN");
+			System.out.println("Source replace BEGIN");
 			float f = base.withDraw(amount);
-			// System.out.println("Source replace END");
+			System.out.println("Source replace END");
 			return f;
 		}
 
@@ -29,9 +29,9 @@ public team class CallinTransaction {
 	public class Target playedBy Account {
 
 		callin float deposit(float amount) {
-			// System.out.println("Target replace BEGIN");
+			System.out.println("Target replace BEGIN");
 			float f = base.deposit(amount);
-			// System.out.println("Target replace END");
+			System.out.println("Target replace END");
 			return f;
 		}
 

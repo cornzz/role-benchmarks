@@ -90,7 +90,7 @@ public team class Bank {
 
         float limited(float amount) <- replace float decrease(float amount);
 
-        float replace(float amount) <- replace float increase(float amount);
+        // float replace(float amount) <- replace float increase(float amount);
 
         // void after() <- after void decrease(float amount);
     }
