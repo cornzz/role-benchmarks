@@ -1,6 +1,11 @@
 package benchmark.bank;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Account {
+
+    static Logger logger = LoggerFactory.getLogger(Account.class);
 
     public  int id;
     private float balance;
@@ -12,13 +17,13 @@ public class Account {
 
     public float decrease(float amount) {
         balance -= amount;
-        System.out.println("BASE Account " + id + " decrease " + amount);
+        logger.info("BASE Account " + id + " decrease " + amount);
         return amount;
     }
 
     public float increase(float amount) {
         balance += amount;
-        System.out.println("BASE Account " + id + " increase " + amount);
+        logger.info("BASE Account " + id + " increase " + amount);
         return amount;
     }
 

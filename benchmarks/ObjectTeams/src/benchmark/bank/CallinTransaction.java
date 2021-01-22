@@ -1,22 +1,27 @@
 package benchmark.bank;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public team class CallinTransaction {
+
+	static Logger logger = LoggerFactory.getLogger(CallinTransaction.class);
 
 	public class Source playedBy Account {
 
 		public void before(float a) {
-		    System.out.println("Source before");
+		    logger.info("Source before");
         }
 
 		callin float withDraw(float amount) {
-			System.out.println("Source replace BEGIN");
+			logger.info("Source replace BEGIN");
 			float f = base.withDraw(amount);
-			System.out.println("Source replace END");
+			logger.info("Source replace END");
 			return f;
 		}
 
 		public void after() {
-		    // System.out.println("Source after");
+		    // logger.info("Source after");
 		}
 
     	void before(float a) <- before float decrease(float amount);
@@ -29,9 +34,9 @@ public team class CallinTransaction {
 	public class Target playedBy Account {
 
 		callin float deposit(float amount) {
-			System.out.println("Target replace BEGIN");
+			logger.info("Target replace BEGIN");
 			float f = base.deposit(amount);
-			System.out.println("Target replace END");
+			logger.info("Target replace END");
 			return f;
 		}
 
@@ -40,14 +45,14 @@ public team class CallinTransaction {
 
 	// @ImplicitTeamActivation
 	public boolean execute(Account f, Account t, float a) {
-		// System.out.println("Transaction decrease BEGIN");
-		float dec = f.decrease(a);
-		// System.out.println("Transaction decrease END");
-		// System.out.println(dec);
+		// logger.info("Transaction decrease BEGIN");
+		f.decrease(a);
+		// logger.info("Transaction decrease END");
+		// logger.info(dec);
 
-		// System.out.println("Transaction increase BEGIN");
-		float inc = t.increase(a);
-		// System.out.println("Transaction increase END");
+		// logger.info("Transaction increase BEGIN");
+		t.increase(a);
+		// logger.info("Transaction increase END");
 		return true;
 	}
 }

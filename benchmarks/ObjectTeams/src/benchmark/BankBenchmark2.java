@@ -3,9 +3,13 @@ package benchmark;
 import benchmark.bank.Account;
 import benchmark.bank.Bank;
 import benchmark.bank.Person;
-import benchmark.bank.CallinTransaction;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BankBenchmark2 extends Benchmark {
+
+    static Logger logger = LoggerFactory.getLogger(BankBenchmark2.class);
 
     private Bank bank;
 
@@ -22,10 +26,10 @@ public class BankBenchmark2 extends Benchmark {
         bank.deactivate();
 
         for (Account from : bank.getCheckingAccounts()) {
-            System.out.println(from.getBalance());
+            logger.info(String.valueOf(from.getBalance()));
         }
         for (Account to : bank.getSavingAccounts()) {
-            System.out.println(to.getBalance());
+            logger.info(String.valueOf(to.getBalance()));
         }
         
         return true;

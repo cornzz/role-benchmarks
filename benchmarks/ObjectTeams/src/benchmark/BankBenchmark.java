@@ -5,7 +5,12 @@ import benchmark.bank.Bank;
 import benchmark.bank.Person;
 import benchmark.bank.CallinTransaction;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class BankBenchmark extends Benchmark {
+
+    static Logger logger = LoggerFactory.getLogger(BankBenchmark.class);
 
     private Bank bank;
 
@@ -26,7 +31,7 @@ public class BankBenchmark extends Benchmark {
                     }
             }
         }
-        System.out.println("=== Context change ===");
+        logger.info("-------- Context change --------");
         for (Account from : bank.getCheckingAccounts()) {
             for (Account to : bank.getSavingAccounts()) {
                     from.decrease(amount);
@@ -36,10 +41,10 @@ public class BankBenchmark extends Benchmark {
         bank.deactivate();
         
         for (Account from : bank.getCheckingAccounts()) {
-            System.out.println(from.getBalance());
+            logger.info(String.valueOf(from.getBalance()));
         }
         for (Account to : bank.getSavingAccounts()) {
-            System.out.println(to.getBalance());
+            logger.info(String.valueOf(to.getBalance()));
         }
 
         return true;
@@ -53,7 +58,7 @@ public class BankBenchmark extends Benchmark {
             Person p = new Person();
             bank.addCustomer(p);
 
-            //System.out.println("Setup Account " + i);
+            //logger.info("Setup Account " + i);
 
             Account sa = new Account(i, 1000.0f);
             Account ca = new Account(i, 1000.0f);
