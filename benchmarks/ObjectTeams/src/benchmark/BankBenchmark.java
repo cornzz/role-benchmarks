@@ -38,6 +38,20 @@ public class BankBenchmark extends Benchmark {
                     to.increase(amount);
             }
         }
+        logger.info("-------- Context change 2 --------");
+        for (Account from : bank.getCheckingAccounts()) {
+            for (Account to : bank.getSavingAccounts()) {
+                    CallinTransaction transaction = new CallinTransaction();
+                    transaction.activate();
+                    try {
+                        transaction.execute(from, to, amount);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    } finally {
+                        transaction.deactivate();
+                    }
+            }
+        }
         bank.deactivate();
         
         for (Account from : bank.getCheckingAccounts()) {

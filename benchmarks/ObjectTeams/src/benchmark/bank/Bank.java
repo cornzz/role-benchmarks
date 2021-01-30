@@ -85,7 +85,6 @@ public team class Bank {
             return f;
         }
 
-
         public void after() {
             // logger.info("after checkingsaccount decrease");
         }
