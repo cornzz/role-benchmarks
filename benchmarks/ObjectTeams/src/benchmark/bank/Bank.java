@@ -3,12 +3,12 @@ package benchmark.bank;
 import java.util.List;
 import java.util.LinkedList;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
 
 public team class Bank {
 
-    static Logger logger = LoggerFactory.getLogger(Bank.class);
+    // static Logger logger = LoggerFactory.getLogger(Bank.class);
 
     private List<Customer> customers;
     private List<Account> checkingsAccounts;
@@ -64,24 +64,24 @@ public team class Bank {
         // private static final float LIMIT = 100.0f;
 
         public void before() {
-            logger.info("before CheckingsAccount decrease");
+            // logger.info("before CheckingsAccount decrease");
         }
 
         public void before2() {
-            logger.info("before CheckingsAccount increase");
+            // logger.info("before CheckingsAccount increase");
         }
 
         callin float limited(float amount) {
-            logger.info("replace CheckingsAccount decrease BEGIN");
+            // logger.info("replace CheckingsAccount decrease BEGIN");
             float f = base.limited(amount);
-            logger.info("replace CheckingsAccount decrease END");
+            // logger.info("replace CheckingsAccount decrease END");
             return f;
         }
 
         callin float replace(float amount) {
-            logger.info("replace CheckingsAccount increase BEGIN");
+            // logger.info("replace CheckingsAccount increase BEGIN");
             float f = base.replace(amount);
-            logger.info("replace CheckingsAccount increase END");
+            // logger.info("replace CheckingsAccount increase END");
             return f;
         }
 
@@ -105,24 +105,24 @@ public team class Bank {
         private static final float FEE = 1.1f;
 
         public void before() {
-            logger.info("before SavingsAccount decrease");
+            // logger.info("before SavingsAccount decrease");
         }
 
         public void before2() {
-            logger.info("before SavingsAccount increase");
+            // logger.info("before SavingsAccount increase");
         }
 
         callin float withFee(float amount) {
-            logger.info("replace SavingsAccount decrease BEGIN");
+            // logger.info("replace SavingsAccount decrease BEGIN");
             float f = base.withFee(amount * FEE);
-            logger.info("replace SavingsAccount decrease END");
+            // logger.info("replace SavingsAccount decrease END");
             return f;
         }
 
         callin float replace(float amount) {
-            logger.info("replace SavingsAccount increase BEGIN");
+            // logger.info("replace SavingsAccount increase BEGIN");
             float f = base.replace(amount);
-            logger.info("replace SavingsAccount increase END");
+            // logger.info("replace SavingsAccount increase END");
             return f;
         }
 

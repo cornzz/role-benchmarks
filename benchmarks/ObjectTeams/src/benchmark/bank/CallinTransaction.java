@@ -1,22 +1,22 @@
 package benchmark.bank;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
 
 public team class CallinTransaction {
 
-	static Logger logger = LoggerFactory.getLogger(CallinTransaction.class);
+	// static Logger logger = LoggerFactory.getLogger(CallinTransaction.class);
 
 	public class Source playedBy Account {
 
 		public void before(float a) {
-		    logger.info("Source before");
+		    // logger.info("Source before");
         }
 
 		callin float withDraw(float amount) {
-			logger.info("Source replace BEGIN");
+			// logger.info("Source replace BEGIN");
 			float f = base.withDraw(amount);
-			logger.info("Source replace END");
+			// logger.info("Source replace END");
 			return f;
 		}
 
@@ -34,9 +34,9 @@ public team class CallinTransaction {
 	public class Target playedBy Account {
 
 		callin float deposit(float amount) {
-			logger.info("Target replace BEGIN");
+			// logger.info("Target replace BEGIN");
 			float f = base.deposit(amount);
-			logger.info("Target replace END");
+			// logger.info("Target replace END");
 			return f;
 		}
 
@@ -45,14 +45,10 @@ public team class CallinTransaction {
 
 	// @ImplicitTeamActivation
 	public boolean execute(Account f, Account t, float a) {
-		// logger.info("Transaction decrease BEGIN");
+		
 		f.decrease(a);
-		// logger.info("Transaction decrease END");
-		// logger.info(dec);
 
-		// logger.info("Transaction increase BEGIN");
 		t.increase(a);
-		// logger.info("Transaction increase END");
 		return true;
 	}
 }

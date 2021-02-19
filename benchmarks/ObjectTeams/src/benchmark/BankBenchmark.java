@@ -5,12 +5,12 @@ import benchmark.bank.Bank;
 import benchmark.bank.Person;
 import benchmark.bank.CallinTransaction;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
 
 public class BankBenchmark extends Benchmark {
 
-    static Logger logger = LoggerFactory.getLogger(BankBenchmark.class);
+    // static Logger logger = LoggerFactory.getLogger(BankBenchmark.class);
 
     private Bank bank;
 
@@ -31,14 +31,14 @@ public class BankBenchmark extends Benchmark {
                     }
             }
         }
-        logger.info("-------- Context change --------");
+        // logger.info("-------- Context change --------");
         for (Account from : bank.getCheckingAccounts()) {
             for (Account to : bank.getSavingAccounts()) {
                     from.decrease(amount);
                     to.increase(amount);
             }
         }
-        logger.info("-------- Context change 2 --------");
+        // logger.info("-------- Context change 2 --------");
         for (Account from : bank.getCheckingAccounts()) {
             for (Account to : bank.getSavingAccounts()) {
                     CallinTransaction transaction = new CallinTransaction();
@@ -54,12 +54,12 @@ public class BankBenchmark extends Benchmark {
         }
         bank.deactivate();
         
-        for (Account from : bank.getCheckingAccounts()) {
-            logger.info(String.valueOf(from.getBalance()));
-        }
-        for (Account to : bank.getSavingAccounts()) {
-            logger.info(String.valueOf(to.getBalance()));
-        }
+        // for (Account from : bank.getCheckingAccounts()) {
+        //     logger.info(String.valueOf(from.getBalance()));
+        // }
+        // for (Account to : bank.getSavingAccounts()) {
+        //     logger.info(String.valueOf(to.getBalance()));
+        // }
 
         return true;
     }
@@ -71,8 +71,6 @@ public class BankBenchmark extends Benchmark {
         for (int i = 0; i < innerIterations; ++i) {
             Person p = new Person();
             bank.addCustomer(p);
-
-            //logger.info("Setup Account " + i);
 
             Account sa = new Account(i, 1000.0f);
             Account ca = new Account(i, 1000.0f);
