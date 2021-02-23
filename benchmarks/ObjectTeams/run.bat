@@ -9,6 +9,8 @@ IF "%1" == "1" (
 	set BENCHMARK="benchmark.BankBenchmark2"
 ) ELSE IF "%1" == "3" (
 	set BENCHMARK="benchmark.TeamBenchmark"
+) ELSE IF "%1" == "4" (
+	set BENCHMARK="benchmark.TeamBenchmark2"
 )
 
 IF "%4" == "" (

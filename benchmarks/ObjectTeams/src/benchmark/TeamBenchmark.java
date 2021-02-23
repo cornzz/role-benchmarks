@@ -2,13 +2,11 @@ package benchmark;
 
 import benchmark.team.Base;
 import benchmark.team.Team1;
-// import benchmark.team.Team2;
 
 import java.util.List;
 import java.util.LinkedList;
 
 public class TeamBenchmark extends Benchmark {
-
 
 	private Team1 team1;
 	private List<Base> bases;

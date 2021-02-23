@@ -89,7 +89,7 @@ public team class Bank {
             // logger.info("after checkingsaccount decrease");
         }
 
-        void before() <- before float decrease(float amount);
+        // void before() <- before float decrease(float amount);
 
         // void before2() <- before float increase(float amount);
 
