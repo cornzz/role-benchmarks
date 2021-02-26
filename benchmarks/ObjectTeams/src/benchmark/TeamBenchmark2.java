@@ -55,6 +55,7 @@ public class TeamBenchmark2 extends Benchmark {
 			}
 		}
 		logger.info("-------- Context 5: Team1, Team2, Team1 --------");
+		// Callsite in TeamBenchmark2 unstable
 		team1.activate();
 		team2.activate();
 		team3.activate();
@@ -65,6 +66,7 @@ public class TeamBenchmark2 extends Benchmark {
 			}
 		}
 		logger.info("-------- Context 6: Team1, Team2 --------");
+		// Callsite in Team1 unstable <= Fixed, also no relink in Team2
 		team1.deactivate();
 		for (Base a : bases) {
 			for (Base b : bases) {
@@ -73,6 +75,7 @@ public class TeamBenchmark2 extends Benchmark {
 			}
 		}
 		logger.info("-------- Context 7: Team1, Team1, Team2 --------");
+		// Callsite in Team2 unstable <= Fixed, also no relink in second Team1
 		team1.activate();
 		for (Base a : bases) {
 			for (Base b : bases) {
