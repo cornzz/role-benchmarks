@@ -44,4 +44,3 @@ then
         ant jar -lib $SCRIPT_PATH/objectteams/indy-3.8.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/indy-3.8.0 -Dsource=${1} -Dtarget=${1} -Dver=3.8.0 -Dapr=indy
     fi
 fi
-
