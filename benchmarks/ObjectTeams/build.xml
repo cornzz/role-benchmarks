@@ -9,7 +9,7 @@
       <include name="otre_min.jar" />
     </fileset>
     <fileset dir="${lib}/cp/">
-      <include name="otredyn.jar" />
+      <include name="${otredyn_ver}.jar" />
     </fileset>
     <fileset dir="${lib}/cp/">
       <include name="log4j-1.2.17.jar" />
@@ -40,7 +40,7 @@
       </zipgroupfileset>
     </jar>
     <sleep seconds="1" />
-    <jar jarfile="benchmarks-${apr}-${ver}.jar" basedir="build/classes">
+    <jar jarfile="benchmarks-${apr}-${ver}-${otredyn_ver}.jar" basedir="build/classes">
       <zipfileset src="build/deps.jar" excludes="META-INF/*.SF,META-INF/*.DSA,META-INF/*.RSA" />
       <fileset dir="${lib}/cp">
         <include name="log4j.properties" />
@@ -53,6 +53,6 @@
 
   <target name="clean">
     <delete dir="build" />
-    <delete file="benchmarks-${apr}-${ver}.jar" />
+    <delete file="benchmarks-${apr}-${ver}-${otredyn_ver}.jar" />
   </target>
 </project>
