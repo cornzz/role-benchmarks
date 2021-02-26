@@ -11,6 +11,7 @@ then
 elif [ "$1" = "11" ]
 then
     export JAVA_HOME=$JAVA11_HOME
+    echo $JAVA_HOME
 elif [ "$1" = "14" ]
 then
     export JAVA_HOME=$JAVA14_HOME
