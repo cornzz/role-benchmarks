@@ -84,6 +84,7 @@ public class TeamBenchmark2 extends Benchmark {
 			}
 		}
 		logger.info("-------- Context 8: Team1, Team1 --------");
+		// Callsite in Team1 unstable
 		team2.deactivate();
 		for (Base a : bases) {
 			for (Base b : bases) {
