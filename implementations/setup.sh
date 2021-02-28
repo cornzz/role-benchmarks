@@ -37,7 +37,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     # Build for OpenJDK 14
     /bin/bash $SCRIPT_PATH/build-otj.sh 14 classic 3.8.0
     /bin/bash $SCRIPT_PATH/build-otj.sh 14 indy 3.8.0
-    /bin/bash $SCRIPT_PATH/build-otj.sh 14 indy 3.8.0 otredyn_deg
+    /bin/bash $SCRIPT_PATH/build-otj.sh 14 indy 3.8.0 -deg
     # Build for GraalCE 11
     # /bin/bash $SCRIPT_PATH/build-otj.sh 11 classic 3.8.0
     # /bin/bash $SCRIPT_PATH/build-otj.sh 11 indy 3.8.0

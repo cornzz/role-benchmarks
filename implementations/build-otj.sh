@@ -26,21 +26,21 @@ then
     if [ "$3" = "2.5.0" ]
     then
         echo "ObjectTeams Classic 2.5.0"
-        ant jar -lib $SCRIPT_PATH/objectteams/classic-2.5.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/classic-2.5.0 -Dsource=${1} -Dtarget=${1} -Dver=2.5.0 -Dapr=classic -Dotredyn_ver=${4:-otredyn}
+        ant jar -lib $SCRIPT_PATH/objectteams/classic-2.5.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/classic-2.5.0 -Dsource=${1} -Dtarget=${1} -Dver=2.5.0 -Dapr=classic -Ddeg=""
     elif [ "$3" = "3.8.0" ]
     then
         echo "ObjectTeams Classic 3.8.0"
-        ant jar -lib $SCRIPT_PATH/objectteams/classic-3.8.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/classic-3.8.0 -Dsource=${1} -Dtarget=${1} -Dver=3.8.0 -Dapr=classic -Dotredyn_ver=${4:-otredyn}
+        ant jar -lib $SCRIPT_PATH/objectteams/classic-3.8.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/classic-3.8.0 -Dsource=${1} -Dtarget=${1} -Dver=3.8.0 -Dapr=classic -Ddeg=""
     fi
 elif [ "$2" = "indy" ]
 then
     if [ "$3" = "2.5.0" ]
     then
         echo "ObjectTeams Indy 2.5.0"
-        ant jar -lib $SCRIPT_PATH/objectteams/indy-2.5.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/indy-2.5.0 -Dsource=${1} -Dtarget=${1} -Dver=2.5.0 -Dapr=indy -Dotredyn_ver=${4:-otredyn}
+        ant jar -lib $SCRIPT_PATH/objectteams/indy-2.5.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/indy-2.5.0 -Dsource=${1} -Dtarget=${1} -Dver=2.5.0 -Dapr=indy -Ddeg=""
     elif [ "$3" = "3.8.0" ]
     then
         echo "ObjectTeams Indy 3.8.0" ${4}
-        ant jar -lib $SCRIPT_PATH/objectteams/indy-3.8.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/indy-3.8.0 -Dsource=${1} -Dtarget=${1} -Dver=3.8.0 -Dapr=indy -Dotredyn_ver=${4:-otredyn}
+        ant jar -lib $SCRIPT_PATH/objectteams/indy-3.8.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/indy-3.8.0${4} -Dsource=${1} -Dtarget=${1} -Dver=3.8.0 -Dapr=indy -Ddeg=${4}
     fi
 fi
