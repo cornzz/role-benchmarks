@@ -85,4 +85,4 @@ vignettes/*.pdf
 
 ### PyCharm ###
 */.idea/
-*.svg
+*.pdf
