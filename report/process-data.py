@@ -31,8 +31,8 @@ def normalize_data(data: pd.DataFrame, baseline: pd.DataFrame) -> pd.DataFrame:
 
 
 def mean_and_std(data: pd.DataFrame):
-    data = data.copy().groupby(['Var', 'Approach'])
-    return data.mean(), data.std(ddof=0)
+    grouped = data.groupby(['Var', 'Approach'])
+    return grouped.mean(), grouped.std(ddof=0)
 
 
 def configure_plt_style():
@@ -40,37 +40,37 @@ def configure_plt_style():
     # sns.set(style='ticks', palette='Set2')
 
 
-def plot_data(labels, means, errors, appr, title):
+def plot_data(labels, means, errors, appr, title, filename):
     appr = appr.map({'test-objectteams-classic-38': 'Classic 2020',
                      'test-objectteams-indy-38': 'Polymorphic Dispatch Plans',
                      'test-objectteams-indy-38-deg': 'PDP w/ Degradation'})
-    label_fs, tick_label_fs = 10, 8
     x = np.arange(len(labels)) * 1.5
-    h = [x.to_numpy().flatten() for x in means]
-    w = 0.4
+    y = [x.to_numpy().flatten() for x in means]
+    w = 1.2 / len(appr)
     yerr = [x.to_numpy().flatten() for x in errors]
-    cs = 2.5
+    error_kw = {'elinewidth': 0.8, 'capsize': 10 / len(appr)}
+    label_fs, tick_label_fs = 10, 8
     fig, ax = plt.subplots(figsize=(7, 5))
 
     if len(appr) == 2:
-        ax.bar(x=(x - w/2), height=h[0], width=w, yerr=yerr[0], label=appr[0], capsize=cs)
-        ax.bar(x=(x + w/2), height=h[1], width=w, yerr=yerr[1], label=appr[1], capsize=cs)
+        ax.bar(x=(x - w/2), height=y[0], width=w, yerr=yerr[0], label=appr[0], error_kw=error_kw)
+        ax.bar(x=(x + w/2), height=y[1], width=w, yerr=yerr[1], label=appr[1], error_kw=error_kw)
         ax.set_ylabel('Run time factor normalized to Classic 2020', fontsize=label_fs)
     else:
-        ax.bar(x=(x - w), height=h[0], width=w, yerr=yerr[0], label=appr[0], capsize=cs, log=True)
-        ax.bar(x=x,       height=h[1], width=w, yerr=yerr[1], label=appr[1], capsize=cs, log=True)
-        ax.bar(x=(x + w), height=h[2], width=w, yerr=yerr[2], label=appr[2], capsize=cs, log=True)
+        ax.bar(x=(x - w), height=y[0], width=w, yerr=yerr[0], label=appr[0], error_kw=error_kw, log=True)
+        ax.bar(x=x,       height=y[1], width=w, yerr=yerr[1], label=appr[1], error_kw=error_kw, log=True)
+        ax.bar(x=(x + w), height=y[2], width=w, yerr=yerr[2], label=appr[2], error_kw=error_kw, log=True)
         ax.set_ylabel('Run time in ms', fontsize=label_fs)
 
     ax.set_xlabel('Millions of iterations', fontsize=label_fs)
     ax.set_xticks(x)
     ax.set_xticklabels(labels)
     ax.tick_params(labelsize=tick_label_fs)
-    ax.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=len(appr), mode="expand", borderaxespad=0.,
-              fontsize='small')
+    ax.legend(loc=10, bbox_to_anchor=(0., 1., 1., .102), ncol=len(appr),
+              fontsize='small', frameon=False, borderaxespad=0.)
     ax.set_title(title, pad=30)
     fig.tight_layout()
-    plt.savefig(f'{folder}/{title}.pdf')
+    plt.savefig(f'{folder}/{filename}.pdf')
     plt.show()
 
 
@@ -88,16 +88,21 @@ df2_mean, df2_std = mean_and_std(df2)
 configure_plt_style()
 iter_vars = df1.index.levels[0]
 approaches = df1.index.levels[1]
+titles = ['Static Context Benchmark', 'Variable Contexts Benchmark']
+filenames = ['benchmark_static', 'benchmark_variable',
+             'benchmark_static_normalized', 'benchmark_variable_normalized']
 plot_data(iter_vars,
           [df1_mean.xs(x, level=1) for x in approaches],
           [df1_std.xs(x, level=1) for x in approaches],
           approaches,
-          'Static Context Benchmark_')
+          titles[0],
+          filenames[0])
 plot_data(iter_vars,
           [df2_mean.xs(x, level=1) for x in approaches],
           [df2_std.xs(x, level=1) for x in approaches],
           approaches,
-          'Variable Contexts Benchmark_')
+          titles[1],
+          filenames[1])
 
 # Separate baseline
 bl_mask = 'test-objectteams-classic-38'
@@ -115,9 +120,11 @@ plot_data(iter_vars,
           [df1_norm_mean.xs(x, level=1) for x in approaches],
           [df1_norm_std.xs(x, level=1) for x in approaches],
           approaches,
-          'Static Context Benchmark')
+          titles[0],
+          filenames[2])
 plot_data(iter_vars,
           [df2_norm_mean.xs(x, level=1) for x in approaches],
           [df2_norm_std.xs(x, level=1) for x in approaches],
           approaches,
-          'Variable Contexts Benchmark')
+          titles[1],
+          filenames[3])

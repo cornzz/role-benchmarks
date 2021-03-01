@@ -4,13 +4,17 @@ rem .\run.bat <benchmark> <outer iterations> <inner iterations> <w/o degradation
 set JAVA_HOME=C:\Program Files\Java\jdk-14.0.2
 set WEAV="weavables.txt"
 IF "%1" == "1" (
-	set BENCHMARK="benchmark.BankBenchmark"
-) ELSE IF "%1" == "2" (
-	set BENCHMARK="benchmark.BankBenchmark2"
-) ELSE IF "%1" == "3" (
 	set BENCHMARK="benchmark.TeamBenchmark"
-) ELSE IF "%1" == "4" (
+) ELSE IF "%1" == "2" (
 	set BENCHMARK="benchmark.TeamBenchmark2"
+) ELSE IF "%1" == "3" (
+	set BENCHMARK="benchmark.TeamBenchmark3"
+) ELSE IF "%1" == "4" (
+	set BENCHMARK="benchmark.TeamBenchmark4"
+) ELSE IF "%1" == "5" (
+	set BENCHMARK="benchmark.BankBenchmark"
+) ELSE IF "%1" == "6" (
+	set BENCHMARK="benchmark.BankBenchmark2"
 )
 
 IF "%4" == "1" (

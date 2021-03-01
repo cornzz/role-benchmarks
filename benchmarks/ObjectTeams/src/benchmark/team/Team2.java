@@ -1,22 +1,22 @@
 package benchmark.team;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
 
 public team class Team2 {
 
-	static Logger logger = LoggerFactory.getLogger(Team2.class);
+	// static Logger logger = LoggerFactory.getLogger(Team2.class);
 
 	public class T2_Role1 playedBy Base {
 
 		public void before() {
-			logger.info("before T2_Role1 operation1");
+			// logger.info("before T2_Role1 operation1");
 		}
 
 		callin float replace(float n) {
-			logger.info("replace T2_Role1 operation1 BEGIN");
+			// logger.info("replace T2_Role1 operation1 BEGIN");
 			float f = base.replace(n * 2);
-			logger.info("replace T2_Role1 operation1 END");
+			// logger.info("replace T2_Role1 operation1 END");
 			return f;
 		}
 
@@ -28,13 +28,13 @@ public team class Team2 {
 	public class T2_Role2 playedBy Base {
 
 		public void before() {
-			logger.info("before T2_Role2 operation2");
+			// logger.info("before T2_Role2 operation2");
 		}
 
 		callin float replace(float n) {
-			logger.info("replace T2_Role2 operation2 BEGIN");
+			// logger.info("replace T2_Role2 operation2 BEGIN");
 			float f = base.replace(n / 2);
-			logger.info("replace T2_Role2 operation2 END");
+			// logger.info("replace T2_Role2 operation2 END");
 			return f;
 		}
 
