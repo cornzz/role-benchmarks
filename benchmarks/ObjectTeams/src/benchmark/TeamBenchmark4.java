@@ -20,7 +20,8 @@ public class TeamBenchmark4 extends Benchmark {
 	@Override
 	public boolean innerBenchmarkLoop(final int innerIterations) {
 		float n = 100.0f;
-		for (int i = 0; i < innerIterations; i++) {
+		int iterations = innerIterations * innerIterations;
+		for (int i = 0; i < iterations; i++) {
 			// logger.info("-------- Context 1: Team1 --------");
 			team1.activate();
 			a.operation1(n);
