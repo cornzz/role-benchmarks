@@ -25,10 +25,10 @@ IF "%4" == "1" (
 
 IF "%5" == "" (
 	echo %BENCHMARK% %2 %3 %INDY_VER%
-	"%JAVA_HOME%"\bin\java -server -Xmx4G -ea -Dot.weavable=%WEAV% -server -XX:-TieredCompilation -Xmx4G --add-reads jdk.dynalink=ALL-UNNAMED --add-reads java.base=ALL-UNNAMED --add-reads jdk.localedata=ALL-UNNAMED -Xbootclasspath/a:..\..\implementations\objectteams\indy-3.8.0\otre_min.jar -javaagent:..\..\implementations\objectteams\indy-3.8.0\otredyn_agent.jar -jar benchmarks-indy-3.8.0%INDY_VER%.jar %BENCHMARK% %2 %3
+	"%JAVA_HOME%"\bin\java -server -Xmx4G -ea -Dot.weavable=%WEAV% -server -XX:-TieredCompilation -Xmx4G --add-reads jdk.dynalink=ALL-UNNAMED --add-reads java.base=ALL-UNNAMED --add-reads jdk.localedata=ALL-UNNAMED -Xbootclasspath/a:..\..\implementations\objectteams\indy-3.8.0%INDY_VER%\otre_min.jar -javaagent:..\..\implementations\objectteams\indy-3.8.0%INDY_VER%\otredyn_agent.jar -jar benchmarks-indy-3.8.0%INDY_VER%.jar %BENCHMARK% %2 %3
 ) ELSE (
 	echo %BENCHMARK% %2 %3 %INDY_VER% DEBUG
-	"%JAVA_HOME%"\bin\java -server -Xmx4G -ea -Dot.weavable=%WEAV% -server -XX:-TieredCompilation -Xmx4G --add-reads jdk.dynalink=ALL-UNNAMED --add-reads java.base=ALL-UNNAMED --add-reads jdk.localedata=ALL-UNNAMED -Xbootclasspath/a:..\..\implementations\objectteams\indy-3.8.0\otre_min.jar -javaagent:..\..\implementations\objectteams\indy-3.8.0\otredyn_agent.jar -Xdebug -Xrunjdwp:transport=dt_socket,server=y,address="8000" -jar benchmarks-indy-3.8.0%INDY_VER%.jar %BENCHMARK% %2 %3
+	"%JAVA_HOME%"\bin\java -server -Xmx4G -ea -Dot.weavable=%WEAV% -server -XX:-TieredCompilation -Xmx4G --add-reads jdk.dynalink=ALL-UNNAMED --add-reads java.base=ALL-UNNAMED --add-reads jdk.localedata=ALL-UNNAMED -Xbootclasspath/a:..\..\implementations\objectteams\indy-3.8.0%INDY_VER%\otre_min.jar -javaagent:..\..\implementations\objectteams\indy-3.8.0%INDY_VER%\otredyn_agent.jar -Xdebug -Xrunjdwp:transport=dt_socket,server=y,address="8000" -jar benchmarks-indy-3.8.0%INDY_VER%.jar %BENCHMARK% %2 %3
 
 	rem -Dot.dump
 )
