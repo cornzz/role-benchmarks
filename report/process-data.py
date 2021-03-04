@@ -15,7 +15,7 @@ def load_benchmark_data(path: str) -> List[pd.DataFrame]:
     data.drop(col_drop, axis=1, inplace=True)
     data['Var'] = data['Var'].map(lambda x: round((x / 1000)**2, 2))
     data = data.set_index(['Var', 'Approach', 'Iteration']).sort_index()
-    return [x.drop('Benchmark', axis=1) for _, x in data.groupby('Benchmark')]
+    return data.drop('Benchmark', axis=1), data.drop('Benchmark', axis=1)
 
 
 def means_and_errors(data: pd.DataFrame) -> List[pd.DataFrame]:
