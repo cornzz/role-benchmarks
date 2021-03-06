@@ -11,17 +11,16 @@ def load_benchmark_data(path: str) -> List[pd.DataFrame]:
     col_names = ['Invocation', 'Iteration', 'Value', 'Unit', 'Criterion', 'Benchmark',
                  'VM', 'Approach', 'Extra', 'Cores', 'InputSize', 'Var']
     data = pd.read_csv(path, sep='\t', names=col_names, skiprows=4)
-    col_drop = ['Invocation', 'Unit', 'Criterion', 'VM', 'Extra', 'Cores', 'InputSize']
+    col_drop = ['Invocation', 'Iteration', 'Unit', 'Criterion', 'VM', 'Extra', 'Cores', 'InputSize']
     data.drop(col_drop, axis=1, inplace=True)
     data['Var'] = data['Var'].map(lambda x: round((x / 1000)**2, 2))
-    data = data.set_index(['Var', 'Approach', 'Iteration']).sort_index()
+    data = data.set_index(['Var', 'Approach']).sort_index()
     return [x.drop('Benchmark', axis=1) for _, x in data.groupby('Benchmark')]
 
 
-def means_and_errors(data: pd.DataFrame) -> List[pd.DataFrame]:
+def mean_and_errors(data: pd.DataFrame) -> List[pd.DataFrame]:
     grouped = data.groupby(['Var', 'Approach'])
-    mean = grouped.mean()
-    return mean, mean - grouped.min(), grouped.max() - mean
+    return grouped.mean(), grouped.std(ddof=0)
 
 
 def separate_baseline(data: pd.DataFrame, mask: str) -> List[pd.DataFrame]:
@@ -30,10 +29,8 @@ def separate_baseline(data: pd.DataFrame, mask: str) -> List[pd.DataFrame]:
 
 
 def normalize_data(data: pd.DataFrame, baseline: pd.DataFrame) -> pd.DataFrame:
-    bl_mean = baseline.droplevel(1).groupby(level=[0, 1]).mean()
-    data_iter_mean = data.groupby(level=[0, 1, 2]).mean()
-    data_norm = data_iter_mean.swaplevel(1, 2) / bl_mean
-    return data_norm.droplevel(1).sort_index()
+    bl_mean = baseline.groupby(level=0).mean()
+    return data / bl_mean
 
 
 def configure_plt_style():
@@ -42,7 +39,7 @@ def configure_plt_style():
     # sns.set(style='ticks', palette='Set2')
 
 
-def plot_data(labels: pd.Index, means: list[pd.DataFrame], err_lo: list[pd.DataFrame], err_hi: list[pd.DataFrame],
+def plot_data(labels: pd.Index, means: list[pd.DataFrame], errors: list[pd.DataFrame],
               appr: pd.Index, title: str, filename: str):
     appr = appr.map({'test-objectteams-classic-38': 'Classic 2020',
                      'test-objectteams-indy-38': 'Polymorphic Dispatch Plans',
@@ -50,7 +47,7 @@ def plot_data(labels: pd.Index, means: list[pd.DataFrame], err_lo: list[pd.DataF
     x = np.arange(len(labels)) * 1.5
     y = [x.to_numpy().flatten() - 1 for x in means]
     w = 1.2 / len(appr)
-    yerr = [[l.to_numpy().flatten(), h.to_numpy().flatten()] for l, h in zip(err_lo, err_hi)]
+    yerr = [x.to_numpy().flatten() for x in errors]
     error_kw = {'elinewidth': 0.8, 'capsize': 10 / len(appr)}
     label_fs, tick_label_fs = 10, 8
     fig, ax = plt.subplots(figsize=(7, 5))
@@ -85,8 +82,8 @@ else:
 
 df1, df2 = load_benchmark_data(f'{folder}/benchmark.data')
 # Calculate mean and std
-df1_mean, df1_err_lo, df1_err_hi = means_and_errors(df1)
-df2_mean, df2_err_lo, df2_err_hi = means_and_errors(df2)
+df1_mean, df1_std = mean_and_errors(df1)
+df2_mean, df2_std = mean_and_errors(df2)
 # Plot data
 configure_plt_style()
 iter_vars = df1.index.levels[0]
@@ -96,15 +93,13 @@ filenames = ['benchmark_static', 'benchmark_variable',
              'benchmark_static_normalized', 'benchmark_variable_normalized']
 plot_data(iter_vars,
           [df1_mean.xs(x, level=1) for x in approaches],
-          [df1_err_lo.xs(x, level=1) for x in approaches],
-          [df1_err_hi.xs(x, level=1) for x in approaches],
+          [df1_std.xs(x, level=1) for x in approaches],
           approaches,
           titles[0],
           filenames[0])
 plot_data(iter_vars,
           [df2_mean.xs(x, level=1) for x in approaches],
-          [df2_err_lo.xs(x, level=1) for x in approaches],
-          [df2_err_hi.xs(x, level=1) for x in approaches],
+          [df2_std.xs(x, level=1) for x in approaches],
           approaches,
           titles[1],
           filenames[1])
@@ -117,21 +112,19 @@ df2, df2_bl = separate_baseline(df2, bl_mask)
 df1_norm = normalize_data(df1, df1_bl)
 df2_norm = normalize_data(df2, df2_bl)
 # Calculate mean and std
-df1_norm_mean, df1_norm_err_lo, df1_norm_err_hi = means_and_errors(df1_norm)
-df2_norm_mean, df2_norm_err_lo, df2_norm_err_hi = means_and_errors(df2_norm)
+df1_norm_mean, df1_norm_std = mean_and_errors(df1_norm)
+df2_norm_mean, df2_norm_std = mean_and_errors(df2_norm)
 # Plot normalized data
 approaches = approaches.drop(bl_mask)
 plot_data(iter_vars,
           [df1_norm_mean.xs(x, level=1) for x in approaches],
-          [df1_norm_err_lo.xs(x, level=1) for x in approaches],
-          [df1_norm_err_hi.xs(x, level=1) for x in approaches],
+          [df1_norm_std.xs(x, level=1) for x in approaches],
           approaches,
           titles[0],
           filenames[2])
 plot_data(iter_vars,
           [df2_norm_mean.xs(x, level=1) for x in approaches],
-          [df2_norm_err_lo.xs(x, level=1) for x in approaches],
-          [df2_norm_err_hi.xs(x, level=1) for x in approaches],
+          [df2_norm_std.xs(x, level=1) for x in approaches],
           approaches,
           titles[1],
           filenames[3])

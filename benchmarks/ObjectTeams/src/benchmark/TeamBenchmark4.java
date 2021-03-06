@@ -25,34 +25,46 @@ public class TeamBenchmark4 extends Benchmark {
 			// logger.info("-------- Context 1: Team1 --------");
 			team1.activate();
 			a.operation1(n);
+			// logger.info("100 -- {}", m);
 			b.operation2(n);
+			// logger.info("100 -- {}", m);
 
 			// logger.info("-------- Context 2: Team2, Team1 --------");
 			team2.activate();
 			a.operation1(n);
+			// logger.info("200 -- {}", m);
 			b.operation2(n);
+			// logger.info("50 -- {}", m);
 
 			// logger.info("-------- Context 3: Team2 --------");
 			team1.deactivate();
 			a.operation1(n);
+			// logger.info("400 -- {}", m);
 			b.operation2(n);
+			// logger.info("25 -- {}", m);
 
-			// logger.info("-------- Context 3: Team1, Team2 --------");
+			// logger.info("-------- Context 4: Team1, Team2 --------");
 			team1.activate();
 			a.operation1(n);
+			// logger.info("200 -- {}", m);
 			b.operation2(n);
+			// logger.info("50 -- {}", m);
 
-			// logger.info("-------- Context 4: No active teams --------");
+			// logger.info("-------- Context 5: No active teams --------");
 			team1.deactivate();
 			team2.deactivate();
 			a.operation1(n);
+			// logger.info("200 -- {}", m);
 			b.operation2(n);
+			// logger.info("50 -- {}", m);
 
-			// logger.info("-------- Context 5: Team1, Team1 --------");
+			// logger.info("-------- Context 6: Team1, Team1 --------");
 			team1.activate();
 			team3.activate();
 			a.operation1(n);
+			// logger.info("50 -- {}", m);
 			b.operation2(n);
+			// logger.info("200 -- {}", m);
 			team3.deactivate();
 			team1.deactivate();
 		}
