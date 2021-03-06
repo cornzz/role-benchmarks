@@ -8,13 +8,19 @@ import matplotlib.pyplot as plt
 
 
 def load_benchmark_data(path: str) -> List[pd.DataFrame]:
+    # Read data
     col_names = ['Invocation', 'Iteration', 'Value', 'Unit', 'Criterion', 'Benchmark',
                  'VM', 'Approach', 'Extra', 'Cores', 'InputSize', 'Var']
     data = pd.read_csv(path, sep='\t', names=col_names, skiprows=4)
+    # Drop first iterations
+    data = data[data['Iteration'] != 1]
+    # Drop unnecessary columns
     col_drop = ['Invocation', 'Iteration', 'Unit', 'Criterion', 'VM', 'Extra', 'Cores', 'InputSize']
     data.drop(col_drop, axis=1, inplace=True)
+    # Map innerIterations values
     data['Var'] = data['Var'].map(lambda x: round((x / 1000)**2, 2))
     data = data.set_index(['Var', 'Approach']).sort_index()
+    # Return separate df for each benchmark
     return [x.drop('Benchmark', axis=1) for _, x in data.groupby('Benchmark')]
 
 
