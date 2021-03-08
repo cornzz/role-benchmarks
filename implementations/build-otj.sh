@@ -40,6 +40,6 @@ then
     elif [ "$3" = "3.8.0" ]
     then
         echo "ObjectTeams Indy 3.8.0" ${4}
-        ant jar -lib $SCRIPT_PATH/objectteams/indy-3.8.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/indy-3.8.0${4} -Dsource=${1} -Dtarget=${1} -Dver=3.8.0 -Dapr=indy -Ddeg=${4}
+        ant jar -lib $SCRIPT_PATH/objectteams/indy-3.8.0${4}/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/indy-3.8.0${4} -Dsource=${1} -Dtarget=${1} -Dver=3.8.0 -Dapr=indy -Ddeg=${4}
     fi
 fi
