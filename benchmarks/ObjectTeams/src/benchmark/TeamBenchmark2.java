@@ -7,12 +7,12 @@ import benchmark.team.Team2;
 import java.util.List;
 import java.util.LinkedList;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
 
 public class TeamBenchmark2 extends Benchmark {
 
-	static Logger logger = LoggerFactory.getLogger(TeamBenchmark2.class);
+	// static Logger logger = LoggerFactory.getLogger(TeamBenchmark2.class);
 
 	private Team1 team1;
 	private Team2 team2;
@@ -21,7 +21,7 @@ public class TeamBenchmark2 extends Benchmark {
 
 	@Override
 	public boolean innerBenchmarkLoop(final int innerIterations) {
-		logger.info("-------- Context 1: Team1 --------");
+		// logger.info("-------- Context 1: Team1 --------");
 		team1.activate();
 		float n = 100.0f;
 		for (Base a : bases) {
@@ -30,7 +30,7 @@ public class TeamBenchmark2 extends Benchmark {
 				b.operation2(n);
 			}
 		}
-		logger.info("-------- Context 2: Team2, Team1 --------");
+		// logger.info("-------- Context 2: Team2, Team1 --------");
 		team2.activate();
 		for (Base a : bases) {
 			for (Base b : bases) {
@@ -38,7 +38,7 @@ public class TeamBenchmark2 extends Benchmark {
 				b.operation2(n);
 			}
 		}
-		logger.info("-------- Context 3: Team2 --------");
+		// logger.info("-------- Context 3: Team2 --------");
 		team1.deactivate();
 		for (Base a : bases) {
 			for (Base b : bases) {
@@ -46,7 +46,7 @@ public class TeamBenchmark2 extends Benchmark {
 				b.operation2(n);
 			}
 		}
-		logger.info("-------- Context 4: No active teams --------");
+		// logger.info("-------- Context 4: No active teams --------");
 		team2.deactivate();
 		for (Base a : bases) {
 			for (Base b : bases) {
@@ -54,7 +54,7 @@ public class TeamBenchmark2 extends Benchmark {
 				b.operation2(n);
 			}
 		}
-		logger.info("-------- Context 5: Team1, Team2, Team1 --------");
+		// logger.info("-------- Context 5: Team1, Team2, Team1 --------");
 		// Callsite in TeamBenchmark2 unstable
 		team1.activate();
 		team2.activate();
@@ -65,7 +65,7 @@ public class TeamBenchmark2 extends Benchmark {
 				b.operation2(n);
 			}
 		}
-		logger.info("-------- Context 6: Team1, Team2 --------");
+		// logger.info("-------- Context 6: Team1, Team2 --------");
 		// Callsite in Team1 unstable <= Fixed, also no relink in Team2
 		team1.deactivate();
 		for (Base a : bases) {
@@ -74,7 +74,7 @@ public class TeamBenchmark2 extends Benchmark {
 				b.operation2(n);
 			}
 		}
-		logger.info("-------- Context 7: Team1, Team1, Team2 --------");
+		// logger.info("-------- Context 7: Team1, Team1, Team2 --------");
 		// Callsite in Team2 unstable <= Fixed, also no relink in second Team1
 		team1.activate();
 		for (Base a : bases) {
@@ -83,7 +83,7 @@ public class TeamBenchmark2 extends Benchmark {
 				b.operation2(n);
 			}
 		}
-		logger.info("-------- Context 8: Team1, Team1 --------");
+		// logger.info("-------- Context 8: Team1, Team1 --------");
 		// Callsite in Team1 unstable
 		team2.deactivate();
 		for (Base a : bases) {

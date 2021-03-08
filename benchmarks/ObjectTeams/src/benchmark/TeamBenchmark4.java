@@ -4,12 +4,12 @@ import benchmark.team.Base;
 import benchmark.team.Team1;
 import benchmark.team.Team2;
 
-// import org.slf4j.Logger;
-// import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TeamBenchmark4 extends Benchmark {
 
-	// static Logger logger = LoggerFactory.getLogger(TeamBenchmark4.class);
+	static Logger logger = LoggerFactory.getLogger(TeamBenchmark4.class);
 
 	private Team1 team1;
 	private Team2 team2;
@@ -51,6 +51,7 @@ public class TeamBenchmark4 extends Benchmark {
 			// logger.info("50 -- {}", m);
 
 			// logger.info("-------- Context 5: No active teams --------");
+			// Unstable in TeamBenchmarks4
 			team1.deactivate();
 			team2.deactivate();
 			a.operation1(n);
