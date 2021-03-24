@@ -20,9 +20,16 @@ public team class Team2 {
 			return f;
 		}
 
+		public void after() {
+			// logger.info("after T2_Role1 operation1");
+		}
+
 		void before() <- before float operation1(float n);
 
 		float replace(float n) <- replace float operation1(float n);
+
+		void after() <- after float operation1(float n);
+
 	}
 
 	public class T2_Role2 playedBy Base {
@@ -38,9 +45,16 @@ public team class Team2 {
 			return f;
 		}
 
+		public void after() {
+			// logger.info("after T2_Role2 operation2");
+		}
+
 		void before() <- before float operation2(float n);
 
 		float replace(float n) <- replace float operation2(float n);
+
+		void after() <- after float operation2(float n);
+
 	}
 
 	public void teamOperation(Base a, Base b, float n) {
