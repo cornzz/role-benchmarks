@@ -1,0 +1,22 @@
+#!/net/home/kummer/.local/bin/rebench test.conf
+# Execution Start: 2021-03-25T15:31:59.216939+00:00
+# Environment: {"userName": "kummer", "manualRun": true, "hostName": "smalltalk", "osType": "Linux", "cpu": "Intel(R) Core(TM) i7-9700T CPU @ 2.00GHz", "clockSpeed": 2000000000, "memory": 33405210624, "software": [{"name": "kernel", "version": "#46-Ubuntu SMP Fri Jul 10 00:24:02 UTC 2020"}, {"name": "kernel-release", "version": "5.4.0-42-generic"}, {"name": "architecture", "version": "x86_64"}]}
+# Source: {"repoURL": "git@github.com:cornzz/role-benchmarks.git", "branchOrTag": "HEAD -> master, origin/master, origin/HEAD", "commitId": "2fd70639de94c7e5ec225a5071734ae5b1524253", "commitMsg": "Update build files\n\nAdd no deg as run param\n", "authorName": "cornzz", "committerName": "cornzz", "authorEmail": "39997278+cornzz@users.noreply.github.com", "committerEmail": "39997278+cornzz@users.noreply.github.com"}
+1	1	410.433000	ms	total	benchmark.TeamBenchmark3	Java14	test-objectteams-indy-38		1	3	1000
+1	2	363.383000	ms	total	benchmark.TeamBenchmark3	Java14	test-objectteams-indy-38		1	3	1000
+1	3	250.839000	ms	total	benchmark.TeamBenchmark3	Java14	test-objectteams-indy-38		1	3	1000
+1	1	407.786000	ms	total	benchmark.TeamBenchmark3	Java14	test-objectteams-indy-38-deg		1	3	1000
+1	2	365.883000	ms	total	benchmark.TeamBenchmark3	Java14	test-objectteams-indy-38-deg		1	3	1000
+1	3	250.475000	ms	total	benchmark.TeamBenchmark3	Java14	test-objectteams-indy-38-deg		1	3	1000
+1	1	915.731000	ms	total	benchmark.TeamBenchmark3	Java14	test-objectteams-classic-38		1	3	1000
+1	2	798.631000	ms	total	benchmark.TeamBenchmark3	Java14	test-objectteams-classic-38		1	3	1000
+1	3	812.643000	ms	total	benchmark.TeamBenchmark3	Java14	test-objectteams-classic-38		1	3	1000
+1	1	49093.523000	ms	total	benchmark.TeamBenchmark4	Java14	test-objectteams-indy-38-deg		1	3	1000
+1	2	49066.992000	ms	total	benchmark.TeamBenchmark4	Java14	test-objectteams-indy-38-deg		1	3	1000
+1	3	48436.752000	ms	total	benchmark.TeamBenchmark4	Java14	test-objectteams-indy-38-deg		1	3	1000
+1	1	857403.356000	ms	total	benchmark.TeamBenchmark4	Java14	test-objectteams-indy-38		1	3	1000
+1	2	812176.924000	ms	total	benchmark.TeamBenchmark4	Java14	test-objectteams-indy-38		1	3	1000
+1	3	810722.593000	ms	total	benchmark.TeamBenchmark4	Java14	test-objectteams-indy-38		1	3	1000
+1	1	49874.920000	ms	total	benchmark.TeamBenchmark4	Java14	test-objectteams-classic-38		1	3	1000
+1	2	50348.240000	ms	total	benchmark.TeamBenchmark4	Java14	test-objectteams-classic-38		1	3	1000
+1	3	50080.700000	ms	total	benchmark.TeamBenchmark4	Java14	test-objectteams-classic-38		1	3	1000
