@@ -40,7 +40,7 @@
       </zipgroupfileset>
     </jar>
     <sleep seconds="1" />
-    <jar jarfile="benchmarks-${apr}-${ver}${deg}.jar" basedir="build/classes">
+    <jar jarfile="benchmarks-${apr}-${ver}.jar" basedir="build/classes">
       <zipfileset src="build/deps.jar" excludes="META-INF/*.SF,META-INF/*.DSA,META-INF/*.RSA" />
       <fileset dir="${lib}/cp">
         <include name="log4j.properties" />
@@ -53,6 +53,6 @@
 
   <target name="clean">
     <delete dir="build" />
-    <delete file="benchmarks-${apr}-${ver}${deg}.jar" />
+    <delete file="benchmarks-${apr}-${ver}.jar" />
   </target>
 </project>

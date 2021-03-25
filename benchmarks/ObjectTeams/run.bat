@@ -18,17 +18,19 @@ IF "%1" == "1" (
 )
 
 IF "%4" == "1" (
-	set INDY_VER=
+	set NO_DEG=-Dotdyn.nodeg
+	set REL_THR=-Dotdyn.urt=0
 ) ELSE (
-	set INDY_VER=-deg
+	set NO_DEG=
+	set REL_THR=
 )
 
 IF "%5" == "" (
-	echo %BENCHMARK% %2 %3 %INDY_VER%
-	"%JAVA_HOME%"\bin\java -server -Xmx4G -ea -Dot.weavable=%WEAV% -server -XX:-TieredCompilation -Xmx4G --add-reads jdk.dynalink=ALL-UNNAMED --add-reads java.base=ALL-UNNAMED --add-reads jdk.localedata=ALL-UNNAMED -Xbootclasspath/a:..\..\implementations\objectteams\indy-3.8.0%INDY_VER%\otre_min.jar -javaagent:..\..\implementations\objectteams\indy-3.8.0%INDY_VER%\otredyn_agent.jar -jar benchmarks-indy-3.8.0%INDY_VER%.jar %BENCHMARK% %2 %3
+	echo %BENCHMARK% %2 %3 %NO_DEG% %REL_THR%
+	"%JAVA_HOME%"\bin\java -server -Xmx4G -ea -Dot.weavable=%WEAV% %NO_DEG% %REL_THR% -server -XX:-TieredCompilation -Xmx4G --add-reads jdk.dynalink=ALL-UNNAMED --add-reads java.base=ALL-UNNAMED --add-reads jdk.localedata=ALL-UNNAMED -Xbootclasspath/a:..\..\implementations\objectteams\indy-3.8.0\otre_min.jar -javaagent:..\..\implementations\objectteams\indy-3.8.0\otredyn_agent.jar -jar benchmarks-indy-3.8.0.jar %BENCHMARK% %2 %3
 ) ELSE (
-	echo %BENCHMARK% %2 %3 %INDY_VER% DEBUG
-	"%JAVA_HOME%"\bin\java -server -Xmx4G -ea -Dot.weavable=%WEAV% -server -XX:-TieredCompilation -Xmx4G --add-reads jdk.dynalink=ALL-UNNAMED --add-reads java.base=ALL-UNNAMED --add-reads jdk.localedata=ALL-UNNAMED -Xbootclasspath/a:..\..\implementations\objectteams\indy-3.8.0%INDY_VER%\otre_min.jar -javaagent:..\..\implementations\objectteams\indy-3.8.0%INDY_VER%\otredyn_agent.jar -Xdebug -Xrunjdwp:transport=dt_socket,server=y,address="8000" -jar benchmarks-indy-3.8.0%INDY_VER%.jar %BENCHMARK% %2 %3
+	echo %BENCHMARK% %2 %3 %NO_DEG% %REL_THR% DEBUG
+	"%JAVA_HOME%"\bin\java -server -Xmx4G -ea -Dot.weavable=%WEAV% %NO_DEG% %REL_THR% -server -XX:-TieredCompilation -Xmx4G --add-reads jdk.dynalink=ALL-UNNAMED --add-reads java.base=ALL-UNNAMED --add-reads jdk.localedata=ALL-UNNAMED -Xbootclasspath/a:..\..\implementations\objectteams\indy-3.8.0\otre_min.jar -javaagent:..\..\implementations\objectteams\indy-3.8.0\otredyn_agent.jar -Xdebug -Xrunjdwp:transport=dt_socket,server=y,address="8000" -jar benchmarks-indy-3.8.0.jar %BENCHMARK% %2 %3
 
 	rem -Dot.dump
 )

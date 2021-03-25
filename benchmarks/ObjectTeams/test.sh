@@ -29,9 +29,11 @@ fi
 
 if [ "$4" = "1" ]
 then
-	INDY_VER=
+	NO_DEG=-Dotdyn.nodeg
+	REL_THR=-Dotdyn.urt=0
 else
-	INDY_VER=-deg
+	NO_DEG=
+	REL_THR=
 fi
 
 # /bin/bash $SCRIPT_PATH/build-otj.sh 14 indy 3.8.0
@@ -47,4 +49,4 @@ JFR="-XX:StartFlightRecording=filename=bench-indy3.jfr,settings=${SCRIPT_PATH}/e
 
 WEAV="/net/home/kummer/BA/role-benchmarks/benchmarks/ObjectTeams/weavables.txt"
 
-/bin/bash $SCRIPT_PATH/java14.sh -ea -Dot.weavable=$WEAV -server -XX:-TieredCompilation -Xmx4G --add-reads jdk.dynalink=ALL-UNNAMED --add-reads java.base=ALL-UNNAMED --add-reads jdk.localedata=ALL-UNNAMED -Xbootclasspath/a:./objectteams/indy-3.8.0$INDY_VER/otre_min.jar -javaagent:./objectteams/indy-3.8.0$INDY_VER/otredyn_agent.jar -jar ../benchmarks/ObjectTeams/benchmarks-indy-3.8.0$INDY_VER.jar $BENCHMARK ${2} ${3}
+/bin/bash $SCRIPT_PATH/java14.sh -ea -Dot.weavable=$WEAV $NO_DEG $REL_THR -server -XX:-TieredCompilation -Xmx4G --add-reads jdk.dynalink=ALL-UNNAMED --add-reads java.base=ALL-UNNAMED --add-reads jdk.localedata=ALL-UNNAMED -Xbootclasspath/a:./objectteams/indy-3.8.0/otre_min.jar -javaagent:./objectteams/indy-3.8.0/otredyn_agent.jar -jar ../benchmarks/ObjectTeams/benchmarks-indy-3.8.0.jar $BENCHMARK ${2} ${3}
