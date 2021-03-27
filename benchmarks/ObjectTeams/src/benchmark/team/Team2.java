@@ -9,8 +9,9 @@ public team class Team2 {
 
 	public class T2_Role1 playedBy Base {
 
-		public void before() {
+		public void before(float n) {
 			// logger.info("before T2_Role1 operation1");
+			n = n * 2;
 		}
 
 		callin float replace(float n) {
@@ -20,22 +21,24 @@ public team class Team2 {
 			return f;
 		}
 
-		public void after() {
+		public void after(float n) {
 			// logger.info("after T2_Role1 operation1");
+			n = n / 2;
 		}
 
-		void before() <- before float operation1(float n);
+		void before(float n) <- before float operation1(float n);
 
 		float replace(float n) <- replace float operation1(float n);
 
-		void after() <- after float operation1(float n);
+		void after(float n) <- after float operation1(float n);
 
 	}
 
 	public class T2_Role2 playedBy Base {
 
-		public void before() {
+		public void before(float n) {
 			// logger.info("before T2_Role2 operation2");
+			n = n / 2;
 		}
 
 		callin float replace(float n) {
@@ -45,15 +48,16 @@ public team class Team2 {
 			return f;
 		}
 
-		public void after() {
+		public void after(float n) {
 			// logger.info("after T2_Role2 operation2");
+			n = n * 2;
 		}
 
-		void before() <- before float operation2(float n);
+		void before(float n) <- before float operation2(float n);
 
 		float replace(float n) <- replace float operation2(float n);
 
-		void after() <- after float operation2(float n);
+		void after(float n) <- after float operation2(float n);
 
 	}
 

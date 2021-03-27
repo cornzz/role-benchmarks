@@ -63,24 +63,8 @@ public class TeamBenchmark4 extends Benchmark {
 			team22.deactivate();
 			a.operation1(n);
 			b.operation2(n);
-
-			// logger.info("-------- Context 9: Team2, Team1, Team1 --------");		// TeamBenchmark4: *9*, Team1: 4, Team2: *5*
-			team21.activate();
-			a.operation1(n);
-			b.operation2(n);
-
-			// logger.info("-------- Context 10: Team2, Team2, Team1, Team1 --------");	// TeamBenchmark4: *10*, Team1: 4, Team2: *6*
-			team22.activate();
-			a.operation1(n);
-			b.operation2(n);
-
-			// logger.info("-------- Context 11: No active teams --------");			// TeamBenchmark4: *11*, Team1: 4, Team2: *6*
-			team22.deactivate();
-			team21.deactivate();
 			team12.deactivate();
 			team11.deactivate();
-			a.operation1(n);
-			b.operation2(n);
 		}
 
 		return true;

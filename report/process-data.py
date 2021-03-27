@@ -12,7 +12,7 @@ def load_benchmark_data(path: str) -> List[pd.DataFrame]:
     col_names = ['Invocation', 'Iteration', 'Value', 'Unit', 'Criterion', 'Benchmark',
                  'VM', 'Approach', 'Extra', 'Cores', 'InputSize', 'Var']
     data = pd.read_csv(path, sep='\t', names=col_names, skiprows=4)
-    print(f'Run time: {data["Value"].sum() / 1000 / 60} seconds')
+    print(f'Run time: {data["Value"].sum() / 1000 / 60} minutes')
     # Drop first iterations
     data = data[data['Iteration'] != 1]
     # Drop unnecessary columns
