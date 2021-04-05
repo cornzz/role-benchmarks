@@ -20,8 +20,8 @@ public class TeamBenchmark4 extends Benchmark {
 
 	@Override
 	public boolean innerBenchmarkLoop(final int innerIterations) {
-		float n = 100.0f;
 		int iterations = innerIterations * innerIterations;
+		float n = 100.0f;
 		for (int i = 0; i < iterations; i++) {
 			// logger.info("-------- Context 1: Team1 --------");						// TeamBenchmark4: 1, Team1: 1, Team2: 0
 			team11.activate();
@@ -33,7 +33,7 @@ public class TeamBenchmark4 extends Benchmark {
 			a.operation1(n);
 			b.operation2(n);
 
-			// logger.info("-------- Context 3: Team2, Team2, Team1 --------");		// TeamBenchmark4: 3, Team1: 1, Team2: 2
+			// logger.info("-------- Context 3: Team2, Team2, Team1 --------");			// TeamBenchmark4: 3, Team1: 1, Team2: 2
 			team22.activate();
 			a.operation1(n);
 			b.operation2(n);
@@ -54,7 +54,7 @@ public class TeamBenchmark4 extends Benchmark {
 			a.operation1(n);
 			b.operation2(n);
 
-			// logger.info("-------- Context 7: Team1, Team1, Team2 --------");		// TeamBenchmark4: *7*, Team1: 3, Team2: 4
+			// logger.info("-------- Context 7: Team1, Team1, Team2 --------");			// TeamBenchmark4: *7*, Team1: 3, Team2: 4
 			team12.activate();
 			a.operation1(n);
 			b.operation2(n);
