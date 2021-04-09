@@ -16,13 +16,13 @@ def load_benchmark_data(path: str) -> List[pd.DataFrame]:
     data = pd.read_csv(path, sep='\t', names=col_names, skiprows=4)
     print(f'Run time: {data["Value"].sum() / 1000 / 60} minutes')
     # Drop first iterations
-    data = data[data['Iteration'] != 1]
+    data = data[~data['Iteration'].isin([1, 2])]
     # Drop unnecessary columns
     col_drop = ['Invocation', 'Iteration', 'Unit', 'Criterion', 'VM', 'Extra', 'Cores', 'InputSize']
     data.drop(col_drop, axis=1, inplace=True)
     # Map innerIterations values
     data['Var'] = data['Var'].map(lambda x: round((x / 1000)**2, 2))
-    # data = data[data['Var'].isin([1., 1.5, 2., 2.5, 3., 3.5, 4., 4.5, 5., 5.5, 6.])]
+    data = data[data['Var'].isin([1., 1.5, 2., 2.5, 3., 3.5, 4., 4.5, 5., 5.5, 6.])]
     data = data.set_index(['Var', 'Approach']).sort_index()
     # Return separate df for each benchmark
     return [x.drop('Benchmark', axis=1) for _, x in data.groupby('Benchmark')]
@@ -52,17 +52,17 @@ def configure_plt_style():
 def plot_data(labels: pd.Index, means: list[pd.DataFrame], errors: list[pd.DataFrame],
               appr: pd.Index, norm: bool, title: str, filename: str, geo_mean: np.array = None):
     appr = appr.map({'test-objectteams-classic-38': 'Classic 2020',
-                     'test-objectteams-indy-38': 'Polymorphic Dispatch Plans',
-                     'test-objectteams-indy-38-deg': 'PDP w/ Degradation'})
+                     'test-objectteams-indy-38': 'PDP',
+                     'test-objectteams-indy-38-deg': 'PDP+'})
     n = len(appr)
     x = np.arange(len(labels)) * 1.5
-    w = 1.2 / n
+    w = round(1.2 / n, 1)
     offsets = (np.arange(n) - 0.5 * (n - 1)) * w
     y = [m.to_numpy().flatten() - int(norm) for m in means]
     yerr = [e.to_numpy().flatten() for e in errors]
-    error_kw = {'elinewidth': 0.8, 'capsize': 10 / len(appr)}
+    error_kw = {'elinewidth': 0.8, 'capsize': w * 6}
     label_fs, tick_label_fs = 9, 8
-    fig, ax = plt.subplots(figsize=(7, 5))
+    fig, ax = plt.subplots(figsize=(7, 4))
 
     for i in np.arange(n):
         ax.bar(x=(x + offsets[i]), height=y[i], width=w, bottom=int(norm), yerr=yerr[i], label=appr[i], error_kw=error_kw, log=not norm)
@@ -79,10 +79,10 @@ def plot_data(labels: pd.Index, means: list[pd.DataFrame], errors: list[pd.DataF
     if norm:
         handles.append(Line2D([0], [0], c='0.5', ls='--', lw=1))
         labels.append('Geometric Mean')
-    ax.legend(handles=handles, labels=labels, loc=10, bbox_to_anchor=(0., 1., 1, .102),
+    ax.legend(handles=handles, labels=labels, loc=10, bbox_to_anchor=(0., 0.98, 1., .102),
               ncol=len(appr) + int(norm), fontsize='small', frameon=False, borderaxespad=0.)
-    ax.set_title(title, pad=30)
-    fig.tight_layout()
+    ax.set_title(title, {'fontsize': 12}, pad=20)
+    fig.tight_layout(pad=0)
     plt.savefig(f'{folder}/{filename}.pdf')
     plt.show()
 
@@ -102,7 +102,7 @@ df2_mean, df2_std = mean_and_errors(df2)
 configure_plt_style()
 iter_vars = df1.index.levels[0]
 approaches = df1.index.levels[1]
-titles = ['Static Context Benchmark', 'Variable Contexts Benchmark']
+titles = ['Static Contexts Benchmark', 'Variable Contexts Benchmark']
 filenames = ['benchmark_static', 'benchmark_variable',
              'benchmark_static_normalized', 'benchmark_variable_normalized']
 plot_data(labels=iter_vars,
