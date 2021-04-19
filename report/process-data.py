@@ -22,6 +22,7 @@ def load_benchmark_data(path: str) -> List[pd.DataFrame]:
     data.drop(col_drop, axis=1, inplace=True)
     # Map innerIterations values
     data['Var'] = data['Var'].map(lambda x: round((x / 1000)**2, 2))
+    # Drop problem sizes < 1M
     data = data[data['Var'].isin([1., 1.5, 2., 2.5, 3., 3.5, 4., 4.5, 5., 5.5, 6.])]
     data = data.set_index(['Var', 'Approach']).sort_index()
     # Return separate df for each benchmark
@@ -135,8 +136,8 @@ approaches = approaches.drop(bl_mask)
 # Calculate geometric mean
 speedups_static = [gmean(df1_norm_mean.xs(x, level=1))[0] for x in approaches]
 speedups_dynamic = [gmean(df2_norm_mean.xs(x, level=1))[0] for x in approaches]
-print(f'Geometric mean static case: {speedups_static[0]} (PDP), {speedups_static[1]} (PDP w/ Deg)')
-print(f'Geometric mean variable case: {speedups_dynamic[0]} (PDP), {speedups_dynamic[1]} (PDP w/ Deg)')
+print(f'Geometric mean static case: {speedups_static[0]} (PDP), {speedups_static[1]} (PDP+)')
+print(f'Geometric mean variable case: {speedups_dynamic[0]} (PDP), {speedups_dynamic[1]} (PDP+)')
 # Plot normalized data
 plot_data(labels=iter_vars,
           means=[df1_norm_mean.xs(x, level=1) for x in approaches],
